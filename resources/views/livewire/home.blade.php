@@ -1,5 +1,9 @@
-<div>
-    <h2>Home</h2>
+<div class="mt-2">
+    <div class="mb-3 row justify-content-between">
+        <div class="col-auto me-auto">
+            <h1>Home</h1>
+        </div>
+    </div>
     If your happiness depends on money, you will never be happy with yourself.
     <div class="card gradient-card">
         <div class="card-header"><span class="card-title">Title</span></div>

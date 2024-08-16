@@ -1,9 +1,9 @@
 <div class="mt-2">
     <div class="mb-3 row justify-content-between">
-        <div class="col-6">
+        <div class="col-auto me-auto">
             <h1>Makanan</h1>
         </div>
-        <div class="col-6 text-end">
+        <div class="col-auto pt-2">
             <button class="btn btn-create" title="Create" wire:click="create()" ><i class="bi bi-plus"></i></button>
         </div>
     </div>

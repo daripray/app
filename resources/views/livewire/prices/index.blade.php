@@ -1,7 +1,7 @@
-<div>
-    <div class="row justify-content-between">
-        <div class="col-6">
-            <h3>Harga</h3>
+<div class="mt-2">
+    <div class="mb-3 row justify-content-between">
+        <div class="col-auto">
+            <h1>Harga</h1>
         </div>
     </div>
 

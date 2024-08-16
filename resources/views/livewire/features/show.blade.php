@@ -1,6 +1,6 @@
-<div>
-    <div class="row">
-		<div class="col-auto me-auto">
+<div class="mt-2">
+    <div class="mb-3 row justify-content-between">
+        <div class="col-auto mr-auto">
             <h1>Outlet</h1>
         </div>
 		<div class="col-auto">
@@ -14,14 +14,11 @@
         @include('livewire.features.modal')
     @endif
 
-					@if (session()->has('message'))
-						<div class="alert alert-success">
-							{{ session('message') }}
-						</div>
-					@endif
-
-	{{$id}}
-{{--	{{$itemId}}--}}
+    @if (session()->has('message'))
+        <div class="alert alert-success">
+            {{ session('message') }}
+        </div>
+    @endif
     <div class="mb-3 card gradient-card">
         <div class="card-header text-center bg-white"><span class="card-title">Card</span></div>
         <div class="card-body">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Explicabo, illo? Repellendus debitis nostrum neque. Ea sed soluta expedita, enim repellendus possimus est delectus laboriosam aliquam quis dolorum rerum sunt assumenda?</div>
