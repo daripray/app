@@ -15,15 +15,19 @@ return new class extends Migration
     {
         Schema::create('items', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->unique();
             $table->text('description');
             $table->boolean('status')->default(false);
             $table->timestamps();
+			$table->softDeletes();
         });
     }
 
     public function down()
     {
+        Schema::table('items', function (Blueprint $table) {
+            $table->dropSoftDeletes();
+        });
         Schema::dropIfExists('items');
     }
 

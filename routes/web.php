@@ -34,9 +34,3 @@ Route::get('/fe/outlets', \App\Livewire\Outlets\Index::class)->name('outlets.ind
 Route::get('/fe/prices', \App\Livewire\Prices\Index::class)->name('prices.index');
 Route::get('/fe/features', \App\Livewire\Features\Show::class)->name('features.show');
 
-
-// dd($uri);
-
-// $url = route('about');
-// dd($url);
-// dd(Route::getRoutes());

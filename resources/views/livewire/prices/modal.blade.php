@@ -1,38 +1,34 @@
-<div class="modal fade show d-block" style="background-color: rgba(0,0,0,0.5);" tabindex="-1">
+<div class="modal fade show d-block modal-sm" style="background-color: rgba(0,0,0,0.5);" tabindex="-1" id=" ">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="priceModalLabel">{{ $isEdit ? 'Edit' : 'Tambah' }} Harga Outlet: {{ $outlet->name }}</h5>
+                <h5 class="modal-title" id="priceModalLabel">{{ $isEdit ? 'Edit' : 'Tambah' }} Harga Outlet {{ $outlet->name }}</h5>
                 <button type="button" class="btn-close" wire:click="closeModal()" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form>
-                    @if (sizeof($outlet->prices)>0)
-                        {{--price has set--}}
-                        @foreach($outlet->prices as $price)
-                            @if($price->item->status)
-                            <div class="input-group mb-3">
-                                <b class="input-group-text" for="price_{{ $price->item->id }}"><strong>{{ $price->item->name }}</strong></b>
-                                <input type="number" class="form-control text-end" step="0.01" id="price_{{ $price->item->id }}" wire:model="new_price.{{ $price->item->id }}"  for="price_{{ $price->item->id }}">
-                            </div>
-                            @endif
-                        @endforeach
-                    @else
-                        {{--price not set--}}
-{{--                    {{$items}}--}}
-                        @foreach($items as $item)
-                            <div class="mb-3">
-                                <div class="input-group mb-3">
-                                    <b class="input-group-text" for="price_{{ $item->id }}"><strong>{{ $item->name }}</strong></b>
-                                    <input type="number" class="form-control text-end" step="0.01" id="price_{{ $item->id }}" wire:model="new_price.{{ $item->id }}" for="price_{{ $item->id }}">
-                                </div>
-                            </div>
-                        @endforeach
-                    @endif
+					@foreach($items as $item)
+						<div class="mb-3">
+							<label for="item{{ $item->id }}" class="form-label">{{ $item->name }}</label>
+							<input type="number" step="100" class="form-control text-end" id="item{{ $item->id }}"
+								   wire:model.defer="prices.{{ $item->id }}"
+								   @if ($item->status == 0) readonly disabled @endif>
+							@error('prices.' . $item->id)
+								<span class="text-danger">{{ $message }}</span>
+							@enderror
+						</div>
+					@endforeach
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" wire:click="save()">Simpan</button>
+				<div class="row col-12">
+					<div class="col-auto me-auto">
+                		<button type="button" class="btn btn-cancel" wire:click="closeModal()"><i class="bi bi-x-lg"></i> Close</button>
+					</div>
+					<div class="col-auto">
+                		<button type="button" class="btn btn-save" wire:click="save()"><i class="bi bi-floppy"></i > Save {{ $isEdit ? 'changes' : '' }}</button>
+					</div>
+				</div>
             </div>
         </div>
     </div>

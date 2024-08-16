@@ -2,7 +2,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Form Outlet</h5>
+                <h5 class="modal-title">{{ $outletId ? 'Edit' : 'Tambah' }} Data Outlet</h5>
                 <button type="button" class="btn-close" wire:click="closeModal()" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -28,8 +28,8 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" wire:click="closeModal()">Batal</button>
-                <button type="button" class="btn btn-primary" wire:click="save()">Simpan</button>
+                <button type="button" class="btn btn-secondary" wire:click="closeModal()">Close</button>
+                <button type="button" class="btn btn-primary" wire:click="save()">Save {{ $outletId ? 'changes' : '' }}</button>
             </div>
         </div>
     </div>

@@ -13,11 +13,12 @@ return new class extends Migration
     {
         Schema::create('outlets', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->unique();
             $table->text('description')->nullable();
             $table->string('location');
             $table->boolean('status')->default(true);
             $table->timestamps();
+			$table->softDeletes();
         });
 
     }
@@ -27,6 +28,9 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::table('outlets', function (Blueprint $table) {
+            $table->dropSoftDeletes();
+        });
         Schema::dropIfExists('outlets');
     }
 };

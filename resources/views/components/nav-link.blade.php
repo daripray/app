@@ -5,7 +5,7 @@
 @endphp
 <li class="nav-item">
     <a {{ $attributes->merge(['class'=> $classes ]) }}>
-        {{ $slot }}
+        <h6>{{ $slot }}</h6>
     </a>
 </li>
 

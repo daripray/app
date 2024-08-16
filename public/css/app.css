@@ -1,0 +1,80 @@
+.rounded-full{
+	border-radius: 9999px !important;
+}
+body{
+	/*background-color: #ecf2fb !important;*/
+}
+.card-header, .card-footer{
+	background-color: transparent;
+}
+.rounded-full{
+	border-radius: 9999px !important;
+}
+.btn-create, .btn-update, .btn-save{
+	box-shadow: -1px 1px 3px 0px rgb(13 110 253 / 50%);
+	-webkit-box-shadow: -1px 1px 3px 0px rgb(13 110 253 / 50%);
+	-moz-box-shadow: -1px 1px 3px 0px rgb(13 110 253 / 50%);
+	background-color: white;
+	color: rgb(13 110 253);
+	font-weight: bold;
+	/*border-radius: 9999px !important;*/
+	border-radius: 0.5rem !important;
+}
+.btn-create:hover, .btn-update:hover, .btn-save:hover{
+	box-shadow: 0px 0px 5px 5px rgb(13 110 253 / 100%);
+	-webkit-box-shadow: 0px 0px 5px 5px rgb(13 110 253 / 100%);
+	-moz-box-shadow: 0px 0px 5px 5px rgb(13 110 253 / 100%);
+	color: rgb(13 110 253);
+}
+.btn-delete{
+	box-shadow: -1px 1px 3px 0px rgb(255 193 7 / 50%);
+	-webkit-box-shadow: -1px 1px 3px 0px rgb(255 193 7 / 50%);
+	-moz-box-shadow: -1px 1px 3px 0px rgb(255 193 7 / 50%);
+	background-color: white;
+	color: rgb(255 193 7);
+	font-weight: bold;
+	/*border-radius: 9999px !important;*/
+	border-radius: 0.5rem !important;
+}
+.btn-delete:hover{
+	box-shadow: 0px 0px 5px 5px rgb(255 193 7 / 100%);
+	-webkit-box-shadow: 0px 0px 5px 5px rgb(255 193 7 / 100%);
+	-moz-box-shadow: 0px 0px 5px 5px rgb(255 193 7 / 100%);
+	color: rgb(255 193 7);
+}
+.btn-restore{
+	box-shadow: -1px 1px 3px 0px rgb(32 201 151 / 50%);
+	-webkit-box-shadow: -1px 1px 3px 0px rgb(32 201 151 / 50%);
+	-moz-box-shadow: -1px 1px 3px 0px rgb(32 201 151 / 50%);
+	background-color: white;
+	color: rgb(32 201 151);
+	font-weight: bold;
+	/*border-radius: 9999px !important;*/
+	border-radius: 0.5rem !important;
+}
+.btn-restore:hover{
+	box-shadow: 0px 0px 5px 5px rgb(32 201 151 / 100%);
+	-webkit-box-shadow: 0px 0px 5px 5px rgb(32 201 151 / 100%);
+	-moz-box-shadow: 0px 0px 5px 5px rgb(32 201 151 / 100%);
+	color: rgb(32 201 151);
+}
+.btn-cancel{
+	box-shadow: -1px 1px 3px 0px rgb(220 53 69 / 50%);
+	-webkit-box-shadow: -1px 1px 3px 0px rgb(220 53 69 / 50%);
+	-moz-box-shadow: -1px 1px 3px 0px rgb(220 53 69 / 50%);
+	background-color: white;
+	color: rgb(220 53 69);
+	font-weight: bold;
+	/*border-radius: 9999px !important;*/
+	border-radius: 0.5rem !important;
+}
+.btn-cancel:hover{
+	box-shadow: 0px 0px 5px 5px rgb(220 53 69 / 100%);
+	-webkit-box-shadow: 0px 0px 5px 5px rgb(220 53 69 / 100%);
+	-moz-box-shadow: 0px 0px 5px 5px rgb(220 53 69 / 100%);
+	color: rgb(220 53 69);
+}
+.btn-hide{
+	visibility: hidden !important;
+	display: none !important;
+}

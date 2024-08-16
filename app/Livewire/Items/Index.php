@@ -19,10 +19,19 @@ class Index extends Component
         'status' => 'boolean',
     ];
 
+    public $itemsPerPage = 9;
+    protected $listeners = ['load-more' => 'loadMore'];
+
     public function render()
     {
-        $items = Item::orderBy('name', 'asc')->paginate(100);
+    	$items = Item::withCount('prices')->withTrashed()->orderBy('name', 'asc')->paginate($this->itemsPerPage);
+//		dd($items);
         return view('livewire.items.index', compact('items'));
+    }
+
+    public function loadMore()
+    {
+        $this->itemsPerPage += $this->itemsPerPage;
     }
 
     public function create()
@@ -31,7 +40,7 @@ class Index extends Component
         $this->openModal();
     }
 
-    public function edit($id)
+    public function update($id)
     {
         $item = Item::findOrFail($id);
         $this->itemId = $item->id;
@@ -54,7 +63,7 @@ class Index extends Component
             ]
         );
 
-        session()->flash('message', $this->itemId ? 'Item updated successfully.' : 'Item created successfully.');
+        session()->flash('message_'.$this->itemId, $this->itemId ? 'Item updated successfully.' : 'Item created successfully.');
 
         $this->closeModal();
         $this->resetInputFields();
@@ -62,8 +71,15 @@ class Index extends Component
 
     public function delete($id)
     {
-        Item::find($id)->delete();
-        session()->flash('message', 'Item deleted successfully.');
+        $item = Item::find($id);
+		$item->delete();
+        session()->flash('message_'.$id, 'Item deleted successfully.');
+    }
+
+    public function restore($id)
+    {
+        Item::onlyTrashed()->find($id)->restore();
+        session()->flash('message_'.$id, 'Item restored successfully.');
     }
 
     public function openModal()

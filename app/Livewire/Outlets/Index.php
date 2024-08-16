@@ -20,14 +20,21 @@ class Index extends Component
         'status' => 'boolean',
     ];
 
+    public $itemsPerPage = 9;
+    protected $listeners = ['load-more' => 'loadMore'];
+
     public function render()
     {
-        $outlets = Outlet::orderBy('name', 'asc')->paginate(100);
-
+    	$outlets = Outlet::withCount('prices')->withTrashed()->orderBy('name', 'asc')->orderBy('deleted_at', 'asc')->paginate($this->itemsPerPage);
         return view('livewire.outlets.index',
         [
             'outlets' => $outlets,
         ]);
+    }
+
+    public function loadMore()
+    {
+        $this->itemsPerPage += $this->itemsPerPage;
     }
 
     public function create()
@@ -36,7 +43,7 @@ class Index extends Component
         $this->openModal();
     }
 
-    public function edit($id)
+    public function update($id)
     {
         $outlet = Outlet::findOrFail($id);
         $this->outletId = $outlet->id;
@@ -62,7 +69,7 @@ class Index extends Component
             ]
         );
 
-        session()->flash('message', $this->outletId ? 'Outlet updated successfully.' : 'Outlet created successfully.');
+        session()->flash('message_'.$this->outletId, $this->outletId ? 'Outlet updated successfully.' : 'Outlet created successfully.');
 
         $this->closeModal();
         $this->resetInputFields();
@@ -71,7 +78,13 @@ class Index extends Component
     public function delete($id)
     {
         Outlet::find($id)->delete();
-        session()->flash('message', 'Item deleted successfully.');
+        session()->flash('message_'.$id, 'Outlet deleted successfully.');
+    }
+
+    public function restore($id)
+    {
+        Outlet::onlyTrashed()->find($id)->restore();
+        session()->flash('message_'.$id, 'Outlet restored successfully.');
     }
 
     public function openModal()

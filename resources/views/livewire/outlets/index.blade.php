@@ -1,47 +1,73 @@
-<div>
-    <div class="row justify-content-between">
+<div class="mt-2">
+    <div class="mb-3 row justify-content-between">
         <div class="col-6">
             <h1>Outlet</h1>
         </div>
         <div class="col-6 text-end">
-            <button wire:click="create()" class="btn btn-primary" title="Create">
-                <i class="bi bi-plus-square"></i>
-            </button>
+            <button class="btn btn-create" title="Create" wire:click="create()" ><i class="bi bi-plus"></i></button>
         </div>
     </div>
+
     @if($isOpen)
         @include('livewire.outlets.modal')
     @endif
-    <div class="mt-4 row">
-        @foreach($outlets as $outlet)
-            <div class="mb-4 col-md-4">
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="card-title">{{ $outlet->name }}</h5>
-                    </div>
-                    <div class="card-body">
-                        <p class="card-text">{{ $outlet->description }}</p>
-                        <p><strong>Lokasi:</strong> {{ $outlet->location }}</p>
-                        <p class="card-text">Status: <strong class="{{ $outlet->status ? 'text-success' : 'text-secondary'}}">{{ $outlet->status ? 'Aktif' : 'Non-Aktif' }}</strong></p>
-                    </div>
-                    <div class="card-footer">
-                        <div class="row justify-content-between">
-                            <div class="text-center col-6"><button wire:click="edit({{ $outlet->id }})" class="btn btn-warning"><i class="bi bi-pencil-square"></i></button></div>
-                            <div class="text-center col-6"><button wire:click="delete({{ $outlet->id }})" class="btn btn-danger"><i class="bi bi-trash3"></i></button></div>
-                        </div>
-                    </div>
-                </div>
+
+	@if (session()->has('message_'))
+		<div class="alert alert-success">
+			{{ session('message_') }}
+		</div>
+	@endif
+
+    @foreach($outlets as $outlet)
+        @if(empty($outlet->deleted_at))
+        <div class="card mb-4 shadow">
+			<div class="card-header text-center">
+                <h5 class="card-title text-info">{{ $outlet->name }}</h5>
             </div>
-        @endforeach
-    </div>
+		@else
+		<div class="mb-4 card shadow text-secondary opacity-50">
+            <div class="card-header text-center">
+                <h5 class="card-title" data-bs-toggle="collapse" href="#collapse_{{ $outlet->id }}" role="button" aria-expanded="false" aria-controls="collapse_{{ $outlet->id }}">{{ $outlet->name }}</h5>
+            </div>
+		@endif
+            <div class="card-body {{ empty($outlet->deleted_at) ? '' : 'collapse' }}" id="collapse_{{ $outlet->id }}">
+                @if (session()->has('message_'.$outlet->id))
+                <div class="alert alert-success">
+                    {{ session('message_'.$outlet->id) }}
+                </div>
+				@endif
+                <p><strong>Deskripsi:</strong> {{ $outlet->description }}</p>
+                <p><strong>Lokasi:</strong> {{ $outlet->location }}</p>
+                <p><strong>Status: {{ $outlet->status ? 'Aktif' : 'Non-Aktif' }}</strong></p>
+            </div>
+            <div class="card-footer text-center">
+				<div class="row justify-content-between">
+					<div class="col">
+						<button class="btn btn-{{$outlet->deleted_at?'hide':'update'}}" wire:click="update({{ $outlet->id }})"><i class="bi bi-pencil"></i> Edit</button>
+					</div>
+					<div class="col">
+						<button class="btn btn-{{!$outlet->deleted_at && $outlet->prices_count==0?'delete':'hide'}}" wire:click="delete({{ $outlet->id }})"><i class="bi bi-trash3"></i> Delete</button>
+						<button class="btn btn-{{$outlet->deleted_at?'restore':'hide'}}" wire:click="restore({{ $outlet->id }})"><i class="bi bi-arrow-counterclockwise"></i> Restore</button>
+					</div>
+				</div>
+            </div>
+         </div>
+    @endforeach
 
-    <!-- Pagination -->
-    <!-- Infinite Scroll -->
-    {{-- <div wire:loading wire:target="loadMore">
-        <div class="text-center">Loading...</div>
-    </div> --}}
-
-    {{-- <div class="row">
-        {{ $outlets->links() }}
-    </div> --}}
+	<!-- Infinite Scroll Loading Indicator -->
+	@if($outlets->hasMorePages())
+	<div wire:loading wire:target="loadMore" class="text-center my-4">
+		<div class="spinner-border text-primary" role="status">
+			<span class="visually-hidden">Loading...</span>
+		</div>
+	</div>
+    @endif
+	<script>
+		document.addEventListener('scroll', function() {
+			if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+				@this.call('loadMore');
+			}
+		});
+	</script>
 </div>
+

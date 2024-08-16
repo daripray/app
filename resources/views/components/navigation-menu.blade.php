@@ -75,7 +75,7 @@
               <li><a class="dropdown-item" href="/cash">Kas</a></li>
             </ul>
           </li> --}}
-        </ul>
+        </ul>   
       </div>
     </div>
   </nav>

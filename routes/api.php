@@ -17,3 +17,14 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+// Route::get('/me', function() {
+//     return env('APP_NAME');
+// });
+// Route::get('/get', function() {
+//     return session()->get('theme');
+// });
+// Route::post('/post', function(Request $request) {
+//     env('APP_NAME', '$request->param_1');
+//     return  session()->get('theme');
+// });
