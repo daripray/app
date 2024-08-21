@@ -1,0 +1,100 @@
+<div class="modal fade show d-block modal-sm" style="background-color: rgba(0,0,0,0.5);" tabindex="-1" id="salesModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">{{ $isEdit ? 'Edit' : 'Tambah' }} Penjualan</h5>
+                <button type="button" class="btn-close" wire:click="closeModal()" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label for="saleDate" class="form-label">Tanggal Penjualan</label>
+                        <input type="date" class="form-control" id="saleDate" wire:model.defer="sale.date">
+                        @error('sale.date')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
+                        <label for="outlet" class="form-label">Outlet</label>
+                        <select class="form-select" id="outlet" wire:model.defer="sale.outlet_id">
+                            <option value="">Pilih Outlet</option>
+                            @foreach($outlets as $outlet)
+                                <option value="{{ $outlet->id }}">{{ $outlet->name }}</option>
+                            @endforeach
+                        </select>
+                        @error('sale.outlet_id')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <!-- Loop over sale_details or prices for each item -->
+                    @foreach($items as $itemId => $item)
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <label for="item{{ $itemId }}" class="form-label">{{ $item['name'] }}</label>
+                                <input type="text" class="form-control" id="item{{ $itemId }}" value="{{ number_format($item['price'], 0, ",", ".") }}" readonly>
+                            </div>
+                            <div class="col-md-2">
+                                <label for="quantity{{ $itemId }}" class="form-label">Quantity</label>
+                                <input type="number" class="form-control" id="quantity{{ $itemId }}" wire:model.defer="quantities.{{ $itemId }}">
+                                @error('quantities.' . $itemId)
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="col-md-2">
+                                <label for="sold{{ $itemId }}" class="form-label">Sold</label>
+                                <input type="number" step="0.01" class="form-control" id="sold{{ $itemId }}" wire:model="sold.{{ $itemId }}" wire:input="calculateTotal({{ $itemId }})">
+                                @error('sold.' . $itemId)
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="col-md-4">
+                                <label for="total{{ $itemId }}" class="form-label">Total</label>
+                                <input type="text" class="form-control" id="total{{ $itemId }}" value="{{ number_format($totals[$itemId] ?? 0, 0, ",", ".") }}" readonly>
+                            </div>
+                        </div>
+                    @endforeach
+
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="totalQuantity" class="form-label">Total Quantity</label>
+                            <input type="text" class="form-control" id="totalQuantity" value="{{ $totalQuantity }}" readonly>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="grandTotal" class="form-label">Grand Total</label>
+                            <input type="text" class="form-control" id="grandTotal" value="{{ number_format($grandTotal, 0, ",", ".") }}" readonly>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="paid" class="form-label">Paid</label>
+                        <input type="number" class="form-control" id="paid" wire:model.defer="sale.paid" min="0" max="{{ $grandTotal }}">
+                        @if($sale['paid'] > $grandTotal)
+                            <span class="text-danger">Warning: Paid amount exceeds Grand Total.</span>
+                        @endif
+                    </div>
+
+                    <div class="mb-3 form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="paidoff" wire:model.defer="sale.paidoff">
+                        <label class="form-check-label" for="paidoff">Lunas?</label>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="notes" class="form-label">Catatan</label>
+                        <textarea class="form-control" id="notes" wire:model.defer="sale.notes"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div class="row col-12">
+                    <div class="col-auto me-auto">
+                        <button type="button" class="btn btn-cancel" wire:click="closeModal()"><i class="bi bi-x-lg"></i> Close</button>
+                    </div>
+                    <div class="col-auto">
+                        <button type="button" class="btn btn-save" wire:click="save()"><i class="bi bi-floppy"></i> Save {{ $isEdit ? 'changes' : '' }}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

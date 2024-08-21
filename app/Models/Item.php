@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Model\SaleDetail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -23,5 +24,10 @@ class Item extends Model
     public function prices()
     {
         return $this->hasMany(Price::class);
+    }
+
+    public function saleDetails()
+    {
+        return $this->hasMany(SaleDetail::class);
     }
 }

@@ -1,0 +1,47 @@
+buatkan kode lengkap command terminal untuk menu sales dengan kebutuhan:
+
+1. componen: App\Livewire\Sales\Index.php
+2. model: Model\Sale.php
+3. tambahkan opsi ubah data penjualan
+5. view (livewire/sales/index.blade.php, livewire/sales/modal.blade.php)
+6. routes
+7. menggunakan template bootstrap
+
+view index.blade.php:
+1. list card 
+2. tambah penjualan (method openModal)
+3. opsi ubah data penjualan
+4. filter: tanggal penjualan, outlet
+
+view modal.blade.php ( form ):
+1. date : input date
+2. outlet: select.
+	mode create -> prices.outlet_id),
+	mode update -> (sales.outlet_id)
+3. isExist(sales.date && sales.outlet_id) show message lalu hidden loop item, hidden button save.
+4. loop item: 
+    - items.name as Item,
+		mode create -> prices.item_id,
+		mode update -> sales_detail.item_id.
+    - Quantity (input number),
+    - Sold (input number) gunakan wire:input=calculateSubtotal(Sold * Price),
+    - Price (input  number readonly) -> prices.price.
+		mode create -> prices.price,
+		mode update -> sales_detail.price
+    - Subtotal (input  number readonly) gunakan wire:input=calculateSubtotal(Sold * Price).
+    - price = prices.price where outlet_id and item_id format_number(15, 0)
+
+5. summary otomatis dari calculateSubtotal():
+	- total quantity (sum Quantity),
+	- total sold (sum Sold),
+	- total (sum Subtotal)).
+6. Total: text (otomatis akumulasi dari sales_details.total)
+7. paid: input number format_number(15, 0), paid > total == warning
+8. paidoff / Lunas ?: radio switch (0 Sudah/1 Belum). if(paid == total -> Lunas)
+9. notes textarea (optional)
+
+buat aturan seperti file2 yang sudah saya bagikan.
+nama tabel "sales" dan "sale_details"
+tuliskan langkah-langkah secara rinci model, livewire, views, routes!
+
+untuk tabel sales dan sale_details gunakan tabel yang sudah kita buat seednya

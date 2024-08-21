@@ -102,7 +102,7 @@ class Index extends Component
         $this->name = '';
         $this->description = '';
         $this->location = '';
-        $this->status = 0;
+        $this->status = true;
         $this->outletId = null;
     }
 }

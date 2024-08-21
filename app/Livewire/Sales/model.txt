@@ -1,0 +1,9 @@
+buatkan kode lengkap command terminal untuk menu sales dengan kebutuhan:
+
+1. buatkan migration tabel  
+    sales: date date(), prices.outlet_id, total decimal, paid decimal, paidoff enum(0,1, default 0), notes text ),
+    sale_details: id, sale_id, prices.item_id, quantity integer, sold decimal, price decimal, total decimal)
+2. buatkan models Sale.php, saleDetail.php
+
+nama tabel "sales" dan "sale_details"
+tuliskan langkah-langkah secara rinci migration, model

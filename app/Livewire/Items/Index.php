@@ -66,7 +66,6 @@ class Index extends Component
         session()->flash('message_'.$this->itemId, $this->itemId ? 'Item updated successfully.' : 'Item created successfully.');
 
         $this->closeModal();
-        $this->resetInputFields();
     }
 
     public function delete($id)
@@ -90,13 +89,14 @@ class Index extends Component
     public function closeModal()
     {
         $this->isOpen = false;
+        $this->resetInputFields();
     }
 
     private function resetInputFields()
     {
         $this->name = '';
         $this->description = '';
-        $this->status = 0;
+        $this->status = true;
         $this->itemId = null;
     }
 }

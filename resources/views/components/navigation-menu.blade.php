@@ -18,9 +18,10 @@
           <x-nav-link :active="request()->routeIs('home')" href="{{ route('home') }}">Home</x-nav-link>
 
 
-          <x-nav-link :active="request()->routeIs('items.index')" href="{{ route('items.index') }}">Makanan</x-nav-link>
-          <x-nav-link :active="request()->routeIs('outlets.index')" href="{{ route('outlets.index') }}">Outlet</x-nav-link>
-          <x-nav-link :active="request()->routeIs('prices.index')" href="{{ route('prices.index') }}">Harga</x-nav-link>
+          <x-nav-link :active="request()->routeIs('items.index')" href="{{ route('items.index') }}">Food</x-nav-link>
+          <x-nav-link :active="request()->routeIs('outlets.index')" href="{{ route('outlets.index') }}">Outlets</x-nav-link>
+          <x-nav-link :active="request()->routeIs('prices.index')" href="{{ route('prices.index') }}">Prices</x-nav-link>
+          <x-nav-link :active="request()->routeIs('sales.index')" href="{{ route('sales.index') }}">Sales</x-nav-link>
 
           <x-nav-link :active="request()->routeIs('features.show')" href="{{ route('features.show') }}">Features</x-nav-link>
 

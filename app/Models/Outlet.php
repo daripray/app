@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Model\Sales;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -18,5 +19,10 @@ class Outlet extends Model
     public function prices()
     {
         return $this->hasMany(Price::class);
+    }
+    
+    public function sales()
+    {
+        return $this->hasOne(Sales::class);
     }
 }
